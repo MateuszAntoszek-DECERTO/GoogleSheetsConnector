@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <mule xmlns:basic="http://www.mulesoft.org/schema/mule/basic"
-	  xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	  xmlns="http://www.mulesoft.org/schema/mule/core"
-	  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/basic http://www.mulesoft.org/schema/mule/basic/current/mule-basic.xsd">
 
 	<basic:config name="config" configId="configId">
@@ -19,17 +16,11 @@ http://www.mulesoft.org/schema/mule/basic http://www.mulesoft.org/schema/mule/ba
 		/>
 	</basic:config>
 
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="13aa8ac3-d013-4897-9472-bca65ab29d78">
-		<http:listener-connection host="0.0.0.0" port="8081" />
-	</http:listener-config>
-
 	<flow name="createSpreadsheet">
-		<http:listener doc:name="Listener" doc:id="881438ed-43b2-4f07-9ca0-a489a3d7793e" config-ref="HTTP_Listener_config" path="/createSpreadsheet" allowedMethods="GET"/>
 		<basic:create-spreadsheet title="#[payload]" config-ref="config"/>
 	</flow>
 
 	<flow name="insertSpreadsheetValue">
-		<http:listener doc:name="Listener" doc:id="881438ed-43b2-4f07-9ca0-a489a3d7793e" config-ref="HTTP_Listener_config" path="/insertSpreadsheetValue"/>
 		<basic:insert-spreadsheet-value spreadsheetId="1uIIKg-7bY7jjTejKbedtjVUXKD6oq5EunbKj-zcaPIw" range="Arkusz1!A1:C1" values="123;321;4324" config-ref="config" />
 	</flow>
 </mule>
