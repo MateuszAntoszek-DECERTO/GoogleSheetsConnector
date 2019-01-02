@@ -25,6 +25,9 @@ public final class GoogleSheetsConnection {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(GoogleSheetsConnection.class);
 
+	//TODO Move some constants to configuration
+	private static final String ACCESS_TYPE = "offline";
+	private static final int RECEIVER_PORT = 8888;
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 	private static final String APPLICATION_NAME = "Google sheets connector sample";
 	private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
@@ -58,9 +61,9 @@ public final class GoogleSheetsConnection {
 		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
 				HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
 				.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-				.setAccessType("offline")
+				.setAccessType(ACCESS_TYPE)
 				.build();
-		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(RECEIVER_PORT).build();
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 	}
 

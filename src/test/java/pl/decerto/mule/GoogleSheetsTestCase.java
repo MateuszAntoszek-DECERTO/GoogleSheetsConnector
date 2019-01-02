@@ -20,5 +20,4 @@ public class GoogleSheetsTestCase extends MuleArtifactFunctionalTestCase {
 				.getValue());
 		assertThat(spreadsheetId, is(org.hamcrest.core.IsNull.notNullValue(String.class)));
 	}
-
 }
