@@ -13,7 +13,7 @@ public class GoogleSheetsTestCase extends MuleArtifactFunctionalTestCase {
 	}
 
 	@Test
-	public void executeCreateOperation() throws Exception {
+	public void executeCreateSpreadsheets() throws Exception {
 		String spreadsheetId = ((String) flowRunner("createSpreadsheets").run()
 				.getMessage()
 				.getPayload()

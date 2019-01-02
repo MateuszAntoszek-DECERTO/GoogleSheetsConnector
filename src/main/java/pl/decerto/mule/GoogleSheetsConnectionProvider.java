@@ -28,9 +28,7 @@ public class GoogleSheetsConnectionProvider implements PoolingConnectionProvider
 
 	@Override
 	public GoogleSheetsConnection connect() {
-		GoogleSheetsConnection basicConnection = new GoogleSheetsConnection(clientId, clientSecret, redirectUris, authUri, tokenUri);
-		System.out.println(basicConnection);
-		return basicConnection;
+		return new GoogleSheetsConnection(clientId, clientSecret, redirectUris, authUri, tokenUri);
 	}
 
 	@Override

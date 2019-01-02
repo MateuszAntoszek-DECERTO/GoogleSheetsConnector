@@ -18,8 +18,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class GoogleSheetsConnection {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(GoogleSheetsConnection.class);
 
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 	private static final String APPLICATION_NAME = "Google sheets connector sample";
@@ -30,13 +34,13 @@ public final class GoogleSheetsConnection {
 
 	public GoogleSheetsConnection(String clientId, String clientSecret, String redirectUris, String authUri, String tokenUri) {
 		try {
-			final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+			NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 			Details details = getDetails(clientId, clientSecret, redirectUris, authUri, tokenUri);
-			sheetsConnection = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, details))
+			sheetsConnection = new Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport, details))
 					.setApplicationName(APPLICATION_NAME)
 					.build();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error while connecting", e);
 		}
 	}
 
