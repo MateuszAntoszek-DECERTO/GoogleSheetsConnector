@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:basic="http://www.mulesoft.org/schema/mule/basic"
+<mule xmlns:google-sheets="http://www.mulesoft.org/schema/mule/google-sheets"
 	  xmlns="http://www.mulesoft.org/schema/mule/core"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/basic http://www.mulesoft.org/schema/mule/basic/current/mule-basic.xsd">
+http://www.mulesoft.org/schema/mule/google-sheets http://www.mulesoft.org/schema/mule/google-sheets/current/mule-google-sheets.xsd">
 
-	<basic:config name="config" configId="configId">
-		<basic:connection
-				clientId="ClientId"
-				clientSecret="Password"
+	<google-sheets:config name="GoogleSheetsConfig">
+		<google-sheets:connection
+				clientId="clientId"
+				clientSecret="password"
 				redirectUris="urn:ietf:wg:oauth:2.0:oob;http://localhost"
 				authUri="https://accounts.google.com/o/oauth2/auth"
 				tokenUri="https://www.googleapis.com/oauth2/v3/token"
 		/>
-	</basic:config>
+	</google-sheets:config>
 
-	<flow name="createSpreadsheet">
-		<basic:create-spreadsheet title="#[payload]" config-ref="config"/>
-	</flow>
-
-	<flow name="insertSpreadsheetValue">
-		<basic:insert-spreadsheet-value spreadsheetId="1uIIKg-7bY7jjTejKbedtjVUXKD6oq5EunbKj-zcaPIw" range="Arkusz1!A1:C1" values="123;321;4324" config-ref="config" />
+	<flow name="createSpreadsheets">
+		<google-sheets:create-spreadsheet title="Cool sheet" config-ref="GoogleSheetsConfig"/>
 	</flow>
 </mule>

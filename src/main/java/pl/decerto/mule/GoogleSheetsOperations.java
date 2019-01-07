@@ -1,6 +1,6 @@
 package pl.decerto.mule;
 
-import static org.mule.runtime.extension.api.annotation.param.MediaType.ANY;
+import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
@@ -17,7 +17,7 @@ public class GoogleSheetsOperations {
 	private static final String SPREADSHEET_ID = "spreadsheetId";
 	private static final String VALUE_INPUT_OPTION = "RAW";
 
-	@MediaType(value = ANY, strict = false)
+	@MediaType(TEXT_PLAIN)
 	public String createSpreadsheet(String title, @Connection GoogleSheetsConnection connection) throws IOException {
 		Sheets sheetsConnection = connection.getSheetsConnection();
 		Spreadsheet spreadsheet = new Spreadsheet()
@@ -30,9 +30,8 @@ public class GoogleSheetsOperations {
 		return spreadsheet.getSpreadsheetId();
 	}
 
-
 	//TODO simplify method arguments
-	@MediaType(value = ANY, strict = false)
+	@MediaType(TEXT_PLAIN)
 	public String insertSpreadsheetValue(String spreadsheetId, String range, String values,
 			@Connection GoogleSheetsConnection connection) throws IOException {
 		Sheets sheetsConnection = connection.getSheetsConnection();

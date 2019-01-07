@@ -33,11 +33,7 @@ public class GoogleSheetsConnectionProvider implements PoolingConnectionProvider
 
 	@Override
 	public void disconnect(GoogleSheetsConnection connection) {
-		try {
-			connection.invalidate();
-		} catch (Exception e) {
-			LOGGER.error("Error while disconnecting [" + connection + "]: " + e.getMessage(), e);
-		}
+		connection.invalidate();
 	}
 
 	@Override

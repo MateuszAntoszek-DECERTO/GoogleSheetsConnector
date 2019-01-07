@@ -5,7 +5,7 @@ import org.mule.runtime.extension.api.annotation.Extension;
 import org.mule.runtime.extension.api.annotation.dsl.xml.Xml;
 
 
-@Xml(prefix = "basic")
+@Xml(prefix = "google-sheets")
 @Extension(name = "GoogleSheets", vendor = "decerto")
 @Configurations(BasicConfiguration.class)
 public class GoogleSheetsExtension {
