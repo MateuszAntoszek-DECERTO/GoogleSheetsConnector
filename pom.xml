@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>pl.decerto.mule</groupId>
+    <groupId>457bbc1a-9e28-4365-befc-a8599a417691</groupId>
     <artifactId>google-sheets-connector</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.101</version>
     <packaging>mule-extension</packaging>
     <name>Google sheets connector</name>
 
@@ -47,5 +47,28 @@
             <version>v4-rev516-1.23.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>mule-maven-plugin</artifactId>
+                <version>3.2.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <classifier>google-sheets-connector</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>mulesoftMyRepo</id>
+            <name>mulesoftMyRepo</name>
+            <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/457bbc1a-9e28-4365-befc-a8599a417691/maven</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 
 </project>

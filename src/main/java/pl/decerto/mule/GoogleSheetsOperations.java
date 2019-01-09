@@ -2,6 +2,7 @@ package pl.decerto.mule;
 
 import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.mule.runtime.extension.api.annotation.param.Connection;
 import org.mule.runtime.extension.api.annotation.param.MediaType;
+import pl.decerto.mule.connection.GoogleSheetsConnection;
 
 public class GoogleSheetsOperations {
 
@@ -32,17 +34,17 @@ public class GoogleSheetsOperations {
 
 	//TODO simplify method arguments
 	@MediaType(TEXT_PLAIN)
-	public String insertSpreadsheetValue(String spreadsheetId, String range, String values,
+	public String appendSpreadsheetValues(String spreadsheetId, String sheetName, List<Object> values,
 			@Connection GoogleSheetsConnection connection) throws IOException {
 		Sheets sheetsConnection = connection.getSheetsConnection();
-		List<List<Object>> pharsedValues = Arrays.asList(Arrays.asList(values.split(";")));
+		List<List<Object>> pharsedValues = Arrays.asList(values);
 		ValueRange body = new ValueRange()
 				.setValues(pharsedValues);
-		UpdateValuesResponse result =
-				sheetsConnection.spreadsheets().values().update(spreadsheetId, range, body)
+		AppendValuesResponse result =
+				sheetsConnection.spreadsheets().values().append(spreadsheetId, sheetName, body)
 						.setValueInputOption(VALUE_INPUT_OPTION)
 						.execute();
 
-		return result.getUpdatedColumns().toString();
+		return result.getUpdates().getUpdatedColumns().toString();
 	}
 }

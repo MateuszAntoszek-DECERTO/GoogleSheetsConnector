@@ -6,14 +6,8 @@
 	  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/google-sheets http://www.mulesoft.org/schema/mule/google-sheets/current/mule-google-sheets.xsd">
 
-	<google-sheets:config name="GoogleSheetsConfig">
-		<google-sheets:connection
-				clientId="clientId"
-				clientSecret="password"
-				redirectUris="urn:ietf:wg:oauth:2.0:oob;http://localhost"
-				authUri="https://accounts.google.com/o/oauth2/auth"
-				tokenUri="https://www.googleapis.com/oauth2/v3/token"
-		/>
+	<google-sheets:config name="GoogleSheetsConfig"  >
+		<google-sheets:connection resourcePath="api-project.json" applicationName="GoogleConnectorApp" />
 	</google-sheets:config>
 
 	<flow name="createSpreadsheets">
