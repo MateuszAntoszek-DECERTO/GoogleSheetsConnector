@@ -20,4 +20,13 @@ public class GoogleSheetsTestCase extends MuleArtifactFunctionalTestCase {
 				.getValue());
 		assertThat(spreadsheetId, is(org.hamcrest.core.IsNull.notNullValue(String.class)));
 	}
+
+	@Test
+	public void executeAppendSpreadsheetValues() throws Exception {
+		String spreadsheetId = ((String) flowRunner("appendSpreadsheetValues").run()
+				.getMessage()
+				.getPayload()
+				.getValue());
+		assertThat(spreadsheetId, is(org.hamcrest.core.IsNull.notNullValue(String.class)));
+	}
 }

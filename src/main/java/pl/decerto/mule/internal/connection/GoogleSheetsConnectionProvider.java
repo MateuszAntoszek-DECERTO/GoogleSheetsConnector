@@ -1,4 +1,4 @@
-package pl.decerto.mule.connection;
+package pl.decerto.mule.internal.connection;
 
 import static org.mule.runtime.api.meta.model.display.PathModel.Type.FILE;
 import org.mule.runtime.api.connection.ConnectionValidationResult;
@@ -8,7 +8,6 @@ import org.mule.runtime.extension.api.annotation.param.display.DisplayName;
 import org.mule.runtime.extension.api.annotation.param.display.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class GoogleSheetsConnectionProvider implements PoolingConnectionProvider<GoogleSheetsConnection> {
 

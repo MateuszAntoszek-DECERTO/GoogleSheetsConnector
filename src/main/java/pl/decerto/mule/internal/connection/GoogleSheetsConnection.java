@@ -1,4 +1,4 @@
-package pl.decerto.mule.connection;
+package pl.decerto.mule.internal.connection;
 
 
 import com.google.api.client.auth.oauth2.Credential;

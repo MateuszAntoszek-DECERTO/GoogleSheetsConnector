@@ -1,18 +1,18 @@
-package pl.decerto.mule;
+package pl.decerto.mule.internal.operation;
 
 import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
-import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import org.mule.runtime.extension.api.annotation.param.Connection;
 import org.mule.runtime.extension.api.annotation.param.MediaType;
-import pl.decerto.mule.connection.GoogleSheetsConnection;
+import org.mule.runtime.extension.api.annotation.param.ParameterGroup;
+import pl.decerto.mule.internal.connection.GoogleSheetsConnection;
+import pl.decerto.mule.internal.operation.param.AppendSpreadsheetGroup;
 
 public class GoogleSheetsOperations {
 
@@ -32,16 +32,14 @@ public class GoogleSheetsOperations {
 		return spreadsheet.getSpreadsheetId();
 	}
 
-	//TODO simplify method arguments
 	@MediaType(TEXT_PLAIN)
-	public String appendSpreadsheetValues(String spreadsheetId, String sheetName, List<Object> values,
+	public String appendSpreadsheetValues(@ParameterGroup(name = "Group") AppendSpreadsheetGroup group,
 			@Connection GoogleSheetsConnection connection) throws IOException {
 		Sheets sheetsConnection = connection.getSheetsConnection();
-		List<List<Object>> pharsedValues = Arrays.asList(values);
 		ValueRange body = new ValueRange()
-				.setValues(pharsedValues);
+				.setValues(Arrays.asList(group.getColumns()));
 		AppendValuesResponse result =
-				sheetsConnection.spreadsheets().values().append(spreadsheetId, sheetName, body)
+				sheetsConnection.spreadsheets().values().append(group.getSpreadsheetId(), group.getSheetName(), body)
 						.setValueInputOption(VALUE_INPUT_OPTION)
 						.execute();
 

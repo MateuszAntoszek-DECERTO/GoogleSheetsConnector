@@ -1,8 +1,9 @@
-package pl.decerto.mule;
+package pl.decerto.mule.internal.extension;
 
 import org.mule.runtime.extension.api.annotation.Configurations;
 import org.mule.runtime.extension.api.annotation.Extension;
 import org.mule.runtime.extension.api.annotation.dsl.xml.Xml;
+import pl.decerto.mule.internal.config.BasicConfiguration;
 
 
 @Xml(prefix = "google-sheets")
