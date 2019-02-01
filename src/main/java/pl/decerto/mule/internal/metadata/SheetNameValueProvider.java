@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.toSet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import org.mule.runtime.api.value.Value;
 import org.mule.runtime.extension.api.annotation.param.Connection;

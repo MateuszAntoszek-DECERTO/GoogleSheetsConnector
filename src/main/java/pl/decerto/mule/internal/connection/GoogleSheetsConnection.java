@@ -1,6 +1,7 @@
 package pl.decerto.mule.internal.connection;
 
 
+import static java.lang.Thread.currentThread;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -16,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static java.lang.Thread.currentThread;
 
 
 public final class GoogleSheetsConnection {
@@ -29,11 +29,15 @@ public final class GoogleSheetsConnection {
 
 	private Sheets sheetsConnection;
 
-	public GoogleSheetsConnection(String resourcePath, String applicationName) {
+	public GoogleSheetsConnection(String resourcePath, String applicationName, AuthenticationType authenticationType) {
 		try {
-			sheetsConnection = new Sheets.Builder(new NetHttpTransport(), JSON_FACTORY, getCredentials(resourcePath))
-					.setApplicationName(applicationName)
-					.build();
+			if (AuthenticationType.SERVICE_ACCOUNT == authenticationType) {
+				sheetsConnection = new Sheets.Builder(new NetHttpTransport(), JSON_FACTORY, getCredentials(resourcePath))
+						.setApplicationName(applicationName)
+						.build();
+			} else {
+				throw new RuntimeException("Not supported AuthenticationType");
+			}
 
 		} catch (Exception e) {
 			LOGGER.error("Error while connecting", e);

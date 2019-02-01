@@ -15,6 +15,10 @@ public class GoogleSheetsConnectionProvider implements PoolingConnectionProvider
 	private static final String FAILURE_TEXT = "Missing credentials file path";
 
 	@Parameter
+	@DisplayName("Authentication Type")
+	private AuthenticationType authenticationType;
+
+	@Parameter
 	@DisplayName("Google authentication credentials file (.json)")
 	@Path(type = FILE, acceptedFileExtensions = "json")
 	private String credentialsFilePath;
@@ -25,7 +29,7 @@ public class GoogleSheetsConnectionProvider implements PoolingConnectionProvider
 
 	@Override
 	public GoogleSheetsConnection connect() {
-		return new GoogleSheetsConnection(credentialsFilePath, applicationName);
+		return new GoogleSheetsConnection(credentialsFilePath, applicationName, authenticationType);
 	}
 
 	@Override
